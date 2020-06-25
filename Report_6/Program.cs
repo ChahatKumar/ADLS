@@ -7,50 +7,58 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Buffers;
+using System.Collections.Concurrent;
 
 using Microsoft.Azure.DataLake.Store;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest.Azure.Authentication;
-using System.Collections.Concurrent;
 
 namespace Report_7
-{
+{   
     public class Buffering
     {
-        private byte[][] buffer = new byte[5][];
+        private const  int One_MB = 1050000;
+
+        private byte[][] buffer1 = new byte[5][];
+
         private ArrayPool<byte> samePool = ArrayPool<byte>.Shared;
 
-        public Buffering()
+        public void SendData(AdlsClient c, int i,BlockingCollection<int> b,string filename, string path)
         {
-           for(int i=0;i<5;i++)
-            {
-              //renting 5 byte arrays of 1mb each
-              buffer[i]= samePool.Rent(1050000);
-            }
-        }
-        public void SendData(AdlsClient c, int i, string filename, string path)
-        {
-            i = i % 5;//filling in batch if 5 ( so 0 and 5 will use the same buffer space )
+            i = i % 5; 
+            FileInfo f = new FileInfo(path); 
+            long length = f.Length;
 
-            lock (buffer[i])
-            {
-                FileStream stream = File.OpenRead(path);
-                stream.Read(buffer[i], 0, (int)stream.Length);
-                c.ConcurrentAppend(filename, true, buffer[i], 0, (int)stream.Length);
-                Array.Clear(buffer[i], 0, (int)stream.Length);
-                stream.Close();
+            while (length>0)
+            { 
+                //sending data via 1 MB buffer
+                b.Add(1);
+                if (buffer1[i] == null)
+                { 
+                    buffer1[i] = samePool.Rent(One_MB); 
+                }
+                b.Take(); 
+                length = length - buffer1[i].Length;
+                lock (buffer1[i])
+                {
+                    using (var file = new FileStream(path, FileMode.Open))
+                    { 
+                        file.Read(buffer1[i], 0, buffer1[i].Length); 
+                        c.ConcurrentAppend(filename, true, buffer1[i] , 0, (int) buffer1[i].Length); 
+                        Array.Clear(buffer1[i], 0, (int) buffer1[i].Length);
+                    }
+                } 
             }
+               
         }
 
-        //destructor
         ~Buffering()
-        {
-            //returning all rented arrays 
-            for (int i = 0; i < 5; i++)
-            {
-                samePool.Return(buffer[i]);
-            }
-            Console.WriteLine("obj destroyed");
+        { 
+          //returning all rented arrays 
+          for (int i = 0; i < 5; i++)
+          { 
+              samePool.Return(buffer1[i]); 
+          }
         }
     }
     public class Program
@@ -73,14 +81,15 @@ namespace Report_7
             try
             {
                 //file that wil be created and appended
-                string filename = @"Output_6.txt";
+                string filename = @"Report_6.txt";
                 string[] path = new string[10];
+                BlockingCollection<int> b = new BlockingCollection<int>(1);
 
                 Parallel.For(0, 10, i => {
 
-                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_6\1MB\" + (i + 1) + ".txt";
+                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\" + (i + 1) + ".txt";
 
-                    obj.SendData(client, i, filename, path[i]);
+                    obj.SendData(client,i,b, filename, path[i]);
 
                 });
 

@@ -18,36 +18,47 @@ namespace SingleBuffer
 {
     public class Buffering
     {
+        private const  int One_MB = 1050000;
+
         private byte[] buffer;
+
         private ArrayPool<byte> samePool = ArrayPool<byte>.Shared;
 
-        /*-------*/
-        public Buffering()
+        public void SendData(AdlsClient c, int i, BlockingCollection<int> b, string filename, string path)
         {
-            //renting 1 buffer of 1 mb
-            buffer = samePool.Rent(1050000);
-        }
-        public void SendData(AdlsClient c, int i, string filename, string path)
-        {
-            lock (buffer)
+            FileInfo f = new FileInfo(path);
+            long length = f.Length;
+
+            while (length > 0)
             {
-                FileStream stream = File.OpenRead(path);
-                stream.Read(buffer, 0, (int)stream.Length);
-                c.ConcurrentAppend(filename, true, buffer, 0, (int)stream.Length);
-                Array.Clear(buffer, 0, (int)stream.Length);
-                stream.Close();
+                //sending data via 1 MB buffer
+                b.Add(1);
+                if (buffer == null)
+                {
+                    buffer = samePool.Rent(One_MB);
+                }
+
+                b.Take();
+                length = length - buffer.Length;
+                lock (buffer)
+                {
+                    using (var file = new FileStream(path, FileMode.Open))
+                    {
+                        file.Read(buffer, 0, buffer.Length);
+                        c.ConcurrentAppend(filename, true, buffer, 0, (int) buffer.Length);
+                        Array.Clear(buffer, 0, (int) buffer.Length);
+                    }
+                }
             }
         }
 
-        //destructor
         ~Buffering()
-        {
-            //returning the buffer
-            samePool.Return(buffer);
-
-            Console.WriteLine("obj destroyed");
-        }
+       { 
+          //returning rented array
+           samePool.Return(buffer);
+       }
     }
+    
     public class Program
     {
 
@@ -68,14 +79,16 @@ namespace SingleBuffer
             try
             {
                 //file that wil be created and appended to
-                string filename = @"Output_5.txt";
+                string filename = @"Report_5.txt";
                 string[] path = new string[10];
+
+                BlockingCollection<int> b = new BlockingCollection<int>(1);
               
                 Parallel.For(0, 10, i => {
 
-                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\1MB\" + (i + 1) + ".txt";
+                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\" + (i + 1) + ".txt";
 
-                    obj.SendData(client, i, filename, path[i]);
+                    obj.SendData(client, i,b, filename, path[i]);
 
                 });
 
