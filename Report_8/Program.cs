@@ -118,11 +118,11 @@ namespace Report_7
 
                     if (i < 10)
                     {
-                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\" + (i + 1) + ".txt";
+                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\Report_8\Input\1MB\" + (i + 1) + ".txt";
                     }
                     else
                     {
-                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\2MB\" + ((i%10) + 1) + ".txt";
+                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\Report_8\Input\2MB\" + ((i%10) + 1) + ".txt";
                     }
 
                     obj.SendData(client,i,b, filename, path[i]);
