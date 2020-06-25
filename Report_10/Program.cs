@@ -56,7 +56,7 @@ namespace Report_7
                         }
                     } 
                 }
-                //sending data via 2 MB buffer if data is more than 1 MB but less than 2 MB
+                //sending data via 2 MB buffer if data is more than 1 MB but less than/equal to 2 MB
                 else if(length - Two_MB <= 0)
                 {
                     b.Add(1);
