@@ -1,5 +1,6 @@
 ﻿/*
- * Read 20 files ( 10 of 1 MB and 10 of 2MB) via 5 buffers of 1MB and 5 buffers of 2MB in parallel using concurrent append in one adls file.
+ * Read 20 files ( 10 of 1 MB and 10 of 2MB) via 5 buffers of 1MB and 5 buffers of 2MB in parallel
+ * using concurrent append in one adls file.
  */
 using System;
 using System.IO;
@@ -18,49 +19,69 @@ namespace Week3_2
 {
     public class Buffering
     {
-        private byte[][] buffer1 = new byte[5][] ;
+        private const  int One_MB = 1050000;
+        private const  int Two_MB = 2100000;
+ 
+        private byte[][] buffer1 = new byte[5][];
         private byte[][] buffer2 = new byte[5][];
+   
         private ArrayPool<byte> samePool = ArrayPool<byte>.Shared;
 
-         public Buffering()
+        public void SendData(AdlsClient c, int i,BlockingCollection<int> b,string filename, string path)
         {
-           for(int i=0;i<5;i++)
-            {
-                //renting 5 buffers of 1 mb and 5 buffers of 2 mb 
-              buffer1[i]= samePool.Rent(1050000);
-              buffer2[i] = samePool.Rent(2100000);
-            }
-        }
+            i = i % 5;
+            FileInfo f = new FileInfo(path);
+            long length = f.Length;
 
-        public void SendData(AdlsClient c, int i, string filename, string path)
-        {
-            if(i<10)
-            {
-                i=i%5;
-               lock (buffer1[i])
-               {
-                  FileStream stream = File.OpenRead(path);
-                  stream.Read(buffer1[i], 0, (int)stream.Length);
-                  c.ConcurrentAppend(filename, true, buffer1[i], 0, (int)stream.Length);
-                  Array.Clear(buffer1[i], 0, (int)stream.Length);
-                  stream.Close();
-               }
-            }
-            else
-            {
-                i= (i%10)%5;
-                 lock (buffer2[i])
+            while (length>0)
+            { 
+                //sending data via 1 MB buffer if data is less than/equal to 1 MB
+                if ((length - One_MB) <= 0)
                 {
-                  FileStream stream = File.OpenRead(path);
-                  stream.Read(buffer2[i], 0, (int)stream.Length);
-                  c.ConcurrentAppend(filename, true, buffer2[i], 0, (int)stream.Length);
-                  Array.Clear(buffer2[i], 0, (int)stream.Length);
-                  stream.Close();
+                    b.Add(1);
+                    if (buffer1[i] == null)
+                    { 
+                        buffer1[i] = samePool.Rent(One_MB);
+                        Console.WriteLine("buffer 1 - {0}", i);
+                    }
+                    b.Take();
+
+                    length = length - buffer1[i].Length;
+                    lock (buffer1[i])
+                    {
+                        using (var file = new FileStream(path, FileMode.Open))
+                        { 
+                            file.Read(buffer1[i], 0, buffer1[i].Length); 
+                            c.ConcurrentAppend(filename, true, buffer1[i] , 0, (int) buffer1[i].Length);
+                            Array.Clear(buffer1[i], 0, (int) buffer1[i].Length);
+                        }
+                    } 
                 }
+                //sending data via 2 MB buffer is data more than 2 MB
+                else if(length - Two_MB <= 0) 
+                { 
+                    b.Add(1);
+                    if (buffer2[i] == null)
+                    { 
+                        buffer2[i] = samePool.Rent(Two_MB);
+                        Console.WriteLine("buffer 2 - {0}", i);
+                    }
+                    b.Take();
+                    length = length - buffer2[i].Length;
+                    lock (buffer2[i])
+                    { 
+                        using (var file = new FileStream(path, FileMode.Open))
+                        { 
+                            file.Read(buffer2[i], 0, buffer2[i].Length);
+                            c.ConcurrentAppend(filename, true, buffer2[i] , 0, (int) buffer2[i].Length);
+                            Array.Clear(buffer2[i], 0, (int) buffer2[i].Length);
+                        }
+                    }
+                }
+                
             }
         }
-
-        //destructor
+        
         ~Buffering()
         {
             //returning all rented arrays 
@@ -69,9 +90,9 @@ namespace Week3_2
                 samePool.Return(buffer1[i]);
                 samePool.Return(buffer2[i]);
             }
-            Console.WriteLine("obj destroyed");
         }
     }
+
     public class Program
     {
 
@@ -79,8 +100,7 @@ namespace Week3_2
         private static string clientSecret = ".P0KipHqZAj18k-.t8_-WN4v~90.Jst08h";
         private static string tenantId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
         private static string adlsAccountFQDN = "marstest.azuredatalakestore.net";   // full account FQDN, not just the account name like example.azure.datalakestore.net
-                                                                                     // var samePool = ArrayPool<byte>.Shared;
-                                                                                     // byte[] buffer = samePool.Rent(1000);
+                                                                                    
 
         public static void Main(string[] args)
         {
@@ -95,19 +115,20 @@ namespace Week3_2
             try
             {
                 //file that wil be created and appended
-                string filename = @"Output_8.txt";
+                string filename = @"YoloChahat20.txt";
                 string[] path = new string[20];
+                BlockingCollection<int> b = new BlockingCollection<int>(1);
 
-                Parallel.For(0, 20, i => {
+                Parallel.For(0, 10 , i => {
                     if(i<10)
                     {
-                       path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\" + ((i%10) + 1) + ".txt";
+                       path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\"+ (i+1) + ".txt";
                     }
                     else
                     {
                         path[i]= @"C:\Users\kchah\OneDrive\Desktop\InputFiles\2MB\" + ((i%10) + 1) + ".txt";
                     }
-                    obj.SendData(client, i, filename, path[i]);
+                    obj.SendData(client,i,b, filename, path[i]);
 
                 });
 
