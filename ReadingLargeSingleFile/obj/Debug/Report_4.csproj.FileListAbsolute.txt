@@ -1,0 +1,96 @@
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Report_4.exe.config
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Report_4.exe
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Report_4.pdb
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.Azure.DataLake.Store.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Newtonsoft.Json.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\NLog.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\System.Buffers.dll
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.Azure.DataLake.Store.xml
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.xml
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.xml
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\Newtonsoft.Json.xml
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\bin\Debug\NLog.xml
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\obj\Debug\Report_4.csprojAssemblyReference.cache
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\obj\Debug\Report_4.csproj.CoreCompileInputs.cache
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\obj\Debug\Report_4.csproj.CopyComplete
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\obj\Debug\Report_4.exe
+C:\Users\t-chkum\Desktop\AllCodesVS\ORGANIZED\Report_4\obj\Debug\Report_4.pdb
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Report_4.exe.config
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Report_4.exe
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Report_4.pdb
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.Azure.DataLake.Store.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Newtonsoft.Json.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\NLog.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\System.Buffers.dll
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.Azure.DataLake.Store.xml
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.xml
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.xml
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\Newtonsoft.Json.xml
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\bin\Debug\NLog.xml
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\obj\Debug\Report_4.csprojAssemblyReference.cache
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\obj\Debug\Report_4.csproj.CoreCompileInputs.cache
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\obj\Debug\Report_4.csproj.CopyComplete
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\obj\Debug\Report_4.exe
+C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\obj\Debug\Report_4.pdb
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Report_4.exe.config
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Report_4.exe
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Report_4.pdb
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.Azure.DataLake.Store.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Newtonsoft.Json.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\NLog.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\System.Buffers.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.Azure.DataLake.Store.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\Newtonsoft.Json.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\bin\Debug\NLog.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\obj\Debug\Report_4.csprojAssemblyReference.cache
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\obj\Debug\Report_4.csproj.CoreCompileInputs.cache
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\obj\Debug\Report_4.csproj.CopyComplete
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\obj\Debug\Report_4.exe
+C:\Users\kchah\OneDrive\Desktop\ADLS\Report_4\obj\Debug\Report_4.pdb
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\obj\Debug\Report_4.csprojAssemblyReference.cache
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\obj\Debug\Report_4.csproj.CoreCompileInputs.cache
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\obj\Debug\Report_4.exe
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\obj\Debug\Report_4.pdb
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Report_4.exe.config
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Report_4.exe
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Report_4.pdb
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.Azure.DataLake.Store.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.Rest.ClientRuntime.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Newtonsoft.Json.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\NLog.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\System.Buffers.dll
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.Azure.DataLake.Store.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.Rest.ClientRuntime.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Microsoft.Rest.ClientRuntime.Azure.Authentication.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\Newtonsoft.Json.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\bin\Debug\NLog.xml
+C:\Users\kchah\OneDrive\Desktop\ADLS\reading single large json file\obj\Debug\Report_4.csproj.CopyComplete
