@@ -91,11 +91,11 @@ namespace Report_7
                     if (buffer3[i] == null)
                     {
                         b3.Add(1);
-                        if (buffer3[i] == null)
+                        if (buffer2[i] == null)
                         { 
                             buffer3[i] = samePool.Rent(Four_MB); 
                         }
-                        b3.Take();
+                        b3.Take(); 
                     }
                     length = length - buffer3[i].Length;
                     lock (buffer3[i])
@@ -134,7 +134,6 @@ namespace Report_7
 
             try
             {
-                //file that wil be created and appended
                 string filename = @"Potato.txt";
                 string[] path = new string[30];
 
@@ -144,19 +143,18 @@ namespace Report_7
                     {
                         path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\1MB\" + (i + 1) + ".txt";
                     }
-                    else if(i < 20)
+                    else if (i < 20)
                     {
-                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\2MB\" + ((i%10) + 1) + ".txt";
+                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\2MB\" + ((i % 10) + 1) + ".txt";
                     }
                     else
                     {
-                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\4MB\" + ((i%10) + 1) + ".txt";
+                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\4MB\" + ((i % 10) + 1) + ".txt";
                     }
 
-                    obj.SendData(client,i, filename, path[i]);
+                    obj.SendData(client, i, filename, path[i]);
 
                 });
-
             }
             catch (AdlsException e)
             {
