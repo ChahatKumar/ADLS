@@ -1,4 +1,6 @@
-﻿using System;
+//optimised report 10 for prevent blocking calls
+
+using System;
 using System.IO;
 using System.Text;
 using System.Threading;
