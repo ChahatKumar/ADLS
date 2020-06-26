@@ -1,6 +1,6 @@
 ﻿/*
  *Read 30 files( 10 of 1 MB ,10 of 2 MB and 10 of 4 MB) in parallel with 5 buffers of 1MB,
- * 5 buffers of 2 MB and 5 buffers of 4 MB using concurrent append in one file. 		
+ * 5 buffers of 2 MB and 5 buffers of 4 MB by creating a custom pool using concurrent append in one file. 		
  */
 using System;
 using System.IO;
