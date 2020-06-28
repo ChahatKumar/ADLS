@@ -47,6 +47,7 @@ namespace Report_7
                         if (buffer1[i] == null)
                         { 
                             buffer1[i] = samePool.Rent(One_MB); 
+                            Console.WriteLine(buffer1[i].Length);
                         }
                         b1.Take(); 
                     }
@@ -71,6 +72,8 @@ namespace Report_7
                         if (buffer2[i] == null)
                         { 
                             buffer2[i] = samePool.Rent(Two_MB); 
+                           Console.WriteLine(buffer2[i].Length);
+
                         }
                         b2.Take(); 
                     }
@@ -93,9 +96,11 @@ namespace Report_7
                     if (buffer3[i] == null)
                     {
                         b3.Add(1);
-                        if (buffer2[i] == null)
+                        if (buffer3[i] == null)
                         { 
                             buffer3[i] = samePool.Rent(Four_MB); 
+                           Console.WriteLine(buffer3[i].Length);
+
                         }
                         b3.Take(); 
                     }
@@ -104,6 +109,7 @@ namespace Report_7
                     {
                         using (var file = new FileStream(path, FileMode.Open))
                         { 
+
                             file.Read(buffer3[i], 0, buffer3[i].Length); 
                             c.ConcurrentAppend(filename, true, buffer3[i] , 0, (int) buffer3[i].Length); 
                             Array.Clear(buffer3[i], 0, (int) buffer3[i].Length);
@@ -136,22 +142,22 @@ namespace Report_7
 
             try
             {
-                string filename = @"Potato.txt";
+                string filename = @"A2-COE.txt";
                 string[] path = new string[30];
 
-                Parallel.For(0, 30, i => {
+                Parallel.For(0,5, i => {
 
                     if (i < 10)
                     {
-                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\1MB\" + (i + 1) + ".txt";
+                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\input" + (i + 1) + ".json";
                     }
                     else if (i < 20)
                     {
-                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\2MB\" + ((i % 10) + 1) + ".txt";
+                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\2MB\" + ((i % 10) + 1) + ".txt";
                     }
                     else
                     {
-                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\ADLS\SharedPool\Input\4MB\" + ((i % 10) + 1) + ".txt";
+                        path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\4MB\" + ((i % 10) + 1) + ".txt";
                     }
 
                     obj.SendData(client, i, filename, path[i]);
