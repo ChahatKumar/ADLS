@@ -24,8 +24,6 @@ namespace Report_7
         private byte[][] buffer2 = new byte[5][];
         private byte[][] buffer3 = new byte[5][];
 
-        ConcurrentQueue<byte[]> queue = new ConcurrentQueue<byte[]>(); 
-
         private int[] arr1 =  { -1,-1,-1,-1,-1};
         private int[] arr2 =  { -1,-1,-1,-1,-1};
         private int[] arr3 =  { -1,-1,-1,-1,-1};
@@ -38,7 +36,7 @@ namespace Report_7
 
         public void SendData(AdlsClient c, int i,string filename, string path)
         {
-              i = i % 5; 
+            i = i % 5; 
             FileInfo f = new FileInfo(path); 
             long length = f.Length;
             while (length>0)
@@ -62,7 +60,7 @@ namespace Report_7
                         if(arr1[j]==0)
                         {
                             i = j;
-                            j=6;
+                            j= arr1.Length;
                         }
                     }
                     lock (buffer1[i])
@@ -97,7 +95,7 @@ namespace Report_7
                         if(arr2[j]==0)
                         {
                             i = j;
-                            j=6;
+                            j= arr2.Length;
                         }
                     }
                     lock (buffer2[i])
@@ -133,7 +131,7 @@ namespace Report_7
                         if(arr3[j]==0)
                         {
                             i = j;
-                            j=6;
+                            j= arr3.Length;
                         }
                     }
                     lock (buffer3[i])
