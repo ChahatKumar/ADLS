@@ -1,4 +1,4 @@
-//optimised report 10  to prevent blocking calls
+//optimised report 10  to use buffers through blocking collection 
 
 using System;
 using System.IO;
@@ -35,11 +35,6 @@ namespace Report_7
 
             while (length>0)
             {
-
-
-
-
-
                 // sending data via 1 MB buffer if data is less than/equal to 1 MB
                 if (length - One_MB <= 0)
                 {
@@ -73,9 +68,6 @@ namespace Report_7
                       } 
                     
                 }
-
-
-
 
                 //sending data via 2 MB buffer if data is more than 1 MB but less than/ equal to 2 MB
                 else if(length - Two_MB <= 0)
