@@ -44,7 +44,6 @@ namespace Report_7
                        {
                          byte [] temp = new byte[One_MB];
                          b1.Add(temp);
-                         Console.WriteLine("buffer count after- {0}",b1.Count);
                        }                
 
                     sync1.Take();
