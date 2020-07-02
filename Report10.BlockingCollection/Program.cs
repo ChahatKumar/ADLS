@@ -28,6 +28,10 @@ namespace Report_7
         BlockingCollection<int> sync2 = new BlockingCollection<int>(1);
         BlockingCollection<int> sync4 = new BlockingCollection<int>(1);
 
+        private int total_initialized_1MB  = 0;
+        private int total_initialized_2MB = 0;
+        private int total_initialized_4MB  = 0;
+
         public void SendData(AdlsClient c,string filename, string path)
         {
             FileInfo f = new FileInfo(path); 
@@ -40,21 +44,18 @@ namespace Report_7
                 {
                     sync1.Add(1);
 
-                    if(b1.Count <= 4)
+                    if(total_initialized_1MB <=4)
                        {
                          byte [] temp = new byte[One_MB];
                          b1.Add(temp);
+                         total_initialized_1MB++;
+                       
                        }                
 
-                    sync1.Take();
+                   sync1.Take();
 
-                    sync1.Add(1);
-                   
-                     byte[] buffer1 = b1.Take();
-                     b1.Add(buffer1);
-                    
-                    sync1.Take();
-                  
+                   byte[] buffer1 = b1.Take();
+                 
                    length = length - buffer1.Length;
                    lock (buffer1)
                       {
@@ -65,6 +66,8 @@ namespace Report_7
                             Array.Clear(buffer1, 0, buffer1.Length);
                           }
                       } 
+
+                 b1.Add(buffer1);
                     
                 }
 
@@ -73,23 +76,20 @@ namespace Report_7
                 {
                   
                        sync2.Add(1);
-                       if(b2.Count <= 4)
+                       if( total_initialized_2MB <=4)
                        {
                          byte [] temp = new byte[Two_MB];
                          b2.Add(temp);
+                      
+                        total_initialized_2MB++;
                        }
 
-                     sync2.Take();
-                   
-                     sync2.Add(1);
-                   
-                     byte[] buffer2 = b2.Take();
-                     b2.Add(buffer2);
-                    
-                    sync2.Take();
-                  
-                   length = length - buffer2.Length;
-                   lock (buffer2)
+                      sync2.Take();
+                                       
+                      byte[] buffer2 = b2.Take();
+                                    
+                     length = length - buffer2.Length;
+                     lock (buffer2)
                       {
                           using (var file = new FileStream(path, FileMode.Open))
                           { 
@@ -98,29 +98,24 @@ namespace Report_7
                             Array.Clear(buffer2, 0, buffer2.Length);
                           }
                       } 
-                   
+                     b2.Add(buffer2);
                 }
                 //sending data via 4 MB if data is more than 2 MB
                 else
                 {
-                  
                        sync4.Add(1);
-                       if(b4.Count <= 4)
+                       if(total_initialized_4MB <=4)
                        {
                          byte [] temp = new byte[Four_MB];
                          b4.Add(temp);
+                         total_initialized_4MB++;
                        }
 
                        sync4.Take();
                    
-                     sync4.Add(1);
-                   
-                     byte[] buffer4 = b4.Take();
-                     b4.Add(buffer4);
+                      byte[] buffer4 = b4.Take();
                     
-                    sync4.Take();
                   
-
                    length = length - buffer4.Length;
                    lock (buffer4)
                       {
@@ -131,6 +126,7 @@ namespace Report_7
                             Array.Clear(buffer4, 0, buffer4.Length);
                           }
                       } 
+                    b4.Add(buffer4);
                 }
             }
          }
@@ -154,7 +150,7 @@ namespace Report_7
 
             try
             {
-                string filename = @"Jul2-blockingcollection.txt";
+                string filename = @"sorted.txt";
                 string[] path = new string[30];
 
                 Parallel.For(0,30, i => {
