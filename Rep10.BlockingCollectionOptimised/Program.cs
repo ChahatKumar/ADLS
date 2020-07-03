@@ -46,26 +46,17 @@ namespace Report_7
 
                     byte[] buffer1;
 
-                    if( total_initialized_1MB <=4)
+                    //if total initialised is less than 5 and buffer is empty -> we allocate new array
+                    if( total_initialized_1MB <=4 && b1.Count==0)
                     {
-                        //if array present in bufferpool and total allocations <= 4
-                        if(b1.Count!=0)
-                        {
-                          buffer1 = b1.Take();
-                        }
-                        //allocating new array
-                        else
-                        {
                           byte [] temp = new byte[One_MB];
                           b1.Add(temp);
-                          buffer1 = b1.Take();
                           total_initialized_1MB++;
-                        }
+                        
                     }                
-                    else
-                    {
-                        buffer1 = b1.Take();
-                    }
+           
+                   buffer1 = b1.Take();
+                  
                    sync1.Take();
                  
                    length = length - buffer1.Length;
@@ -79,7 +70,7 @@ namespace Report_7
                           }
                       } 
 
-                 b1.Add(buffer1);
+                  b1.Add(buffer1);
                     
                 }
 
@@ -90,26 +81,17 @@ namespace Report_7
                      sync2.Add(1);
 
                      byte[] buffer2;
-                     if( total_initialized_2MB <=4)
+
+                     //if total initialised is less than 5 and buffer is empty -> we allocate new array
+                     if( total_initialized_2MB <=4 && b2.Count==0)
                      {
-                        //if array present in bufferpool and total allocations <= 4
-                        if(b2.Count!=0)
-                        {
-                           buffer2 = b2.Take();
-                        }
-                        //allocating new array
-                        else
-                        {
                           byte [] temp = new byte[Two_MB];
                           b2.Add(temp);
-                          buffer2 = b2.Take();
-                          total_initialized_2MB++;
-                        }
+                          total_initialized_2MB++;  
                      }                
-                     else
-                     {
-                        buffer2 = b2.Take();
-                     }
+                     
+                     buffer2 = b2.Take();
+                    
                      sync2.Take();
                                     
                      length = length - buffer2.Length;
@@ -130,28 +112,19 @@ namespace Report_7
                     sync4.Add(1);
 
                     byte[] buffer4;
-                    if( total_initialized_4MB <=4)
+
+                    //if total initialised is less than 5 and buffer is empty -> we allocate new array
+
+                    if( total_initialized_4MB <=4 && b4.Count==0)
                     {
-                     
-                        //if array present in bufferpool and total allocations <= 4
-                        if(b4.Count!=0)
-                        {
-                           buffer4 = b4.Take();
-                        }
-                       //allocating new array
-                        else
-                        {
-                          byte [] temp = new byte[Four_MB];
-                          b4.Add(temp);
-                          buffer4 =  b4.Take();
-                          total_initialized_4MB++;
-                        }
+                        byte [] temp = new byte[Four_MB];
+                        b4.Add(temp);
+                        total_initialized_4MB++;
                     }                
-                    else
-                    {
-                        buffer4 = b4.Take();
-                    }
-                   sync4.Take();
+                  
+                    buffer4 = b4.Take();
+                    
+                    sync4.Take();
                   
                    length = length - buffer4.Length;
                    lock (buffer4)
@@ -187,7 +160,7 @@ namespace Report_7
 
             try
             {
-                string filename = @"Optimised.txt";
+                string filename = @"DataCheckAgain.txt";
                 string[] path = new string[30];
 
                 Parallel.For(0,30, i => {
