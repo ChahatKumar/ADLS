@@ -20,13 +20,13 @@ namespace Report_7
         private const int Two_MB = 2100000;
         private const int Four_MB = 4200000;
 
-        BlockingCollection<byte []> b1 = new BlockingCollection<byte []>(5);
-        BlockingCollection<byte []> b2 = new BlockingCollection<byte []>(5);
-        BlockingCollection<byte []> b4 = new BlockingCollection<byte []>(5);
+        private BlockingCollection<byte []> b1 = new BlockingCollection<byte []>(5);
+        private BlockingCollection<byte []> b2 = new BlockingCollection<byte []>(5);
+        private BlockingCollection<byte []> b4 = new BlockingCollection<byte []>(5);
 
-        BlockingCollection<int> sync1 = new BlockingCollection<int>(1);
-        BlockingCollection<int> sync2 = new BlockingCollection<int>(1);
-        BlockingCollection<int> sync4 = new BlockingCollection<int>(1);
+        private BlockingCollection<int> sync1 = new BlockingCollection<int>(1);
+        private BlockingCollection<int> sync2 = new BlockingCollection<int>(1);
+        private BlockingCollection<int> sync4 = new BlockingCollection<int>(1);
 
         private int total_initialized_1MB  = 0;
         private int total_initialized_2MB = 0;
