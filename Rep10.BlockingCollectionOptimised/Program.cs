@@ -20,18 +20,23 @@ namespace Report_7
         private const int Two_MB = 2100000;
         private const int Four_MB = 4200000;
 
+        // using blocking collections of type byte [] to act as a buffer pool with max capping of 5 for each 
+        // configuration ( 1mb , 2 mb, 4 mb)
         private BlockingCollection<byte []> b1 = new BlockingCollection<byte []>(5);
         private BlockingCollection<byte []> b2 = new BlockingCollection<byte []>(5);
         private BlockingCollection<byte []> b4 = new BlockingCollection<byte []>(5);
 
+        // blocking collection to synchronize various sections
         private BlockingCollection<int> sync1 = new BlockingCollection<int>(1);
         private BlockingCollection<int> sync2 = new BlockingCollection<int>(1);
         private BlockingCollection<int> sync4 = new BlockingCollection<int>(1);
 
+        // total initialed is the number of arrays that have been allocated in memmory so far 
         private int total_initialized_1MB  = 0;
         private int total_initialized_2MB = 0;
         private int total_initialized_4MB  = 0;
 
+        //function to send data from path to target ( filename)
         public void SendData(AdlsClient c,string filename, string path)
         {
             FileInfo f = new FileInfo(path); 
@@ -54,7 +59,7 @@ namespace Report_7
                           total_initialized_1MB++;
                         
                     }                
-           
+                   //taking array 
                    buffer1 = b1.Take();
                   
                    sync1.Take();
@@ -69,7 +74,7 @@ namespace Report_7
                             Array.Clear(buffer1, 0, buffer1.Length);
                           }
                       } 
-
+                 //returning the used array back to pool
                   b1.Add(buffer1);
                     
                 }
@@ -89,7 +94,7 @@ namespace Report_7
                           b2.Add(temp);
                           total_initialized_2MB++;  
                      }                
-                     
+                     //taking array 
                      buffer2 = b2.Take();
                     
                      sync2.Take();
@@ -104,6 +109,7 @@ namespace Report_7
                             Array.Clear(buffer2, 0, buffer2.Length);
                           }
                       } 
+                     //returning the used array back to pool
                      b2.Add(buffer2);
                 }
                 //sending data via 4 MB if data is more than 2 MB
@@ -121,7 +127,7 @@ namespace Report_7
                         b4.Add(temp);
                         total_initialized_4MB++;
                     }                
-                  
+                    //taking array
                     buffer4 = b4.Take();
                     
                     sync4.Take();
@@ -136,6 +142,7 @@ namespace Report_7
                             Array.Clear(buffer4, 0, buffer4.Length);
                           }
                       } 
+                   //returning the used array back to pool
                     b4.Add(buffer4);
                 }
             }
@@ -189,7 +196,6 @@ namespace Report_7
 
             Console.WriteLine("Done. Press ENTER to continue ...");
             Console.ReadLine();
-
         }
     }
 }
