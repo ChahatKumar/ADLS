@@ -17,49 +17,58 @@ namespace Report_7
 {   
     public class Buffering
     {
-        private const  int One_MB = 1050000;
+        private const int One_MB = 1050000;
 
-        private byte[][] buffer1 = new byte[5][];
+        // using blocking collections of type byte [] to act as a buffer pool with max capping of 5 for each 
+        // configuration ( 1mb , 2 mb, 4 mb)
+        private BlockingCollection<byte []> b1 = new BlockingCollection<byte []>(5);
 
-        private ArrayPool<byte> samePool = ArrayPool<byte>.Shared;
+        // blocking collection to synchronize various sections
+        private BlockingCollection<int> sync1 = new BlockingCollection<int>(1);
 
-        public void SendData(AdlsClient c, int i,BlockingCollection<int> b,string filename, string path)
+        // total initialed is the number of arrays that have been allocated in memmory so far 
+        private int total_initialized_1MB  = 0;
+
+        //function to send data from path to target ( filename)
+        public void SendData(AdlsClient c,string filename, string path)
         {
-            i = i % 5; 
             FileInfo f = new FileInfo(path); 
             long length = f.Length;
 
             while (length>0)
-            { 
-                //sending data via 1 MB buffer
-                b.Add(1);
-                if (buffer1[i] == null)
-                { 
-                    buffer1[i] = samePool.Rent(One_MB); 
-                }
-                b.Take(); 
-                length = length - buffer1[i].Length;
-                lock (buffer1[i])
-                {
-                    using (var file = new FileStream(path, FileMode.Open))
-                    { 
-                        file.Read(buffer1[i], 0, buffer1[i].Length); 
-                        c.ConcurrentAppend(filename, true, buffer1[i] , 0, (int) buffer1[i].Length); 
-                        Array.Clear(buffer1[i], 0, (int) buffer1[i].Length);
-                    }
-                } 
-            }
-               
-        }
+            {
 
-        ~Buffering()
-        { 
-          //returning all rented arrays 
-          for (int i = 0; i < 5; i++)
-          { 
-              samePool.Return(buffer1[i]); 
-          }
-        }
+                    sync1.Add(1);
+
+                    byte[] buffer1;
+
+                    //if total initialised is less than 5 and buffer is empty -> we allocate new array
+                    if( total_initialized_1MB <=4 && b1.Count==0)
+                    {
+                          byte [] temp = new byte[One_MB];
+                          b1.Add(temp);
+                          total_initialized_1MB++;
+                        
+                    }                
+                   //taking array 
+                   buffer1 = b1.Take();
+                  
+                   sync1.Take();
+                 
+                   length = length - buffer1.Length;
+                   lock (buffer1)
+                      {
+                          using (var file = new FileStream(path, FileMode.Open))
+                          { 
+                            file.Read(buffer1,0, buffer1.Length); 
+                            c.ConcurrentAppend(filename, true, buffer1, 0, buffer1.Length); 
+                            Array.Clear(buffer1, 0, buffer1.Length);
+                          }
+                      } 
+                 //returning the used array back to pool
+                  b1.Add(buffer1);
+            }
+         }
     }
     public class Program
     {
@@ -67,7 +76,7 @@ namespace Report_7
         private static string applicationId = "35fe4d8f-b30e-40ed-8cdf-fee0216569de";     // Also called client id
         private static string clientSecret = ".P0KipHqZAj18k-.t8_-WN4v~90.Jst08h";
         private static string tenantId = "72f988bf-86f1-41af-91ab-2d7cd011db47";
-        private static string adlsAccountFQDN = "marstest.azuredatalakestore.net";   // full account FQDN, not just the account name like example.azure.datalakestore.net
+        private static string adlsAccountFQDN = "marstest.azuredatalakestore.net";   // full account FQDN
                                                                                   
         public static void Main(string[] args)
         {
@@ -80,19 +89,16 @@ namespace Report_7
 
             try
             {
-                //file that wil be created and appended
-                string filename = @"Report_6.txt";
-                string[] path = new string[10];
-                BlockingCollection<int> b = new BlockingCollection<int>(1);
+                string filename = @"DataCheckAgain.txt";
+                string[] path = new string[30];
 
-                Parallel.For(0, 10, i => {
+                Parallel.For(0,10, i => {
 
                     path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\" + (i + 1) + ".txt";
-
-                    obj.SendData(client,i,b, filename, path[i]);
+                   
+                    obj.SendData(client, filename, path[i]);
 
                 });
-
             }
             catch (AdlsException e)
             {
@@ -101,7 +107,6 @@ namespace Report_7
 
             Console.WriteLine("Done. Press ENTER to continue ...");
             Console.ReadLine();
-
         }
     }
 }
