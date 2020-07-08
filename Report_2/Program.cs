@@ -35,7 +35,7 @@ namespace Report_1
                 // individual latency check for append operation 
                 for (int i = 0; i < 10; i++)
                 {
-                    fileName[i] = @"Output_2_sub"+ (i+1) + ".txt";
+                    fileName[i] = @"Output_2_subbb"+ (i+1) + ".txt";
                     using (var Stream = client.CreateFile(fileName[i], IfExists.Overwrite))
                     {
                         // file will be created/overwritten 
@@ -47,7 +47,7 @@ namespace Report_1
                 Parallel.For(0,10,i=>{
                    
 
-                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_2\1MB\"+ (i + 1) + ".txt";
+                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\"+ (i + 1) + ".txt";
                     FileStream stream = File.OpenRead(path[i]);
                     fileBytes[i] = new byte[stream.Length];
 

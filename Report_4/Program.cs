@@ -38,19 +38,27 @@ namespace Report_4
                 Parallel.For(0, 10, i =>
                 { 
                     
-                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\_ADLS-master\Report_4\1MB\" + (i + 1) + ".txt";
+                    path[i] = @"C:\Users\kchah\OneDrive\Desktop\InputFiles\1MB\" + (i + 1) + ".txt";
 
                     // reading data
-                    FileStream stream = File.OpenRead(path[i]);
-
+                    /*FileStream stream = File.OpenRead(path[i]);
+                    Console.WriteLine(stream.Length);
                     fileBytes[i] = new byte[stream.Length];
 
                     //storing to a byte array 
                     stream.Read(fileBytes[i], 0, fileBytes[i].Length);
                     client.ConcurrentAppend(fileName, true, fileBytes[i], 0, fileBytes[i].Length);
 
-                    stream.Close();
-                
+                    stream.Close();*/
+                      using (var file = new FileStream(path[i], FileMode.Open))
+                        {                     fileBytes[i] = new byte[file.Length];
+
+                                                        Console.WriteLine(file.Length);
+
+                            file.Read(fileBytes[i], 0, fileBytes[i].Length); 
+                            client.ConcurrentAppend(fileName, true, fileBytes[i] , 0, (int) fileBytes[i].Length); 
+                            //Array.Clear(buffer3[i], 0, (int) buffer3[i].Length);
+                       }
                 });
                 
             }
