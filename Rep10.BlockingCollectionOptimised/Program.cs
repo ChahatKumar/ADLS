@@ -31,7 +31,7 @@ namespace Report_7
         private BlockingCollection<int> sync2 = new BlockingCollection<int>(1);
         private BlockingCollection<int> sync4 = new BlockingCollection<int>(1);
 
-        // total initialed is the number of arrays that have been allocated in memmory so far 
+        // total initialed is the number of arrays that have been allocated in memory so far 
         private int total_initialized_1MB  = 0;
         private int total_initialized_2MB = 0;
         private int total_initialized_4MB  = 0;
@@ -57,7 +57,6 @@ namespace Report_7
                           byte [] temp = new byte[One_MB];
                           b1.Add(temp);
                           total_initialized_1MB++;
-                        
                     }                
                    //taking array 
                    buffer1 = b1.Take();
@@ -65,15 +64,14 @@ namespace Report_7
                    sync1.Take();
                  
                    length = length - buffer1.Length;
-                   lock (buffer1)
-                      {
-                          using (var file = new FileStream(path, FileMode.Open))
-                          { 
-                            file.Read(buffer1,0, buffer1.Length); 
-                            c.ConcurrentAppend(filename, true, buffer1, 0, buffer1.Length); 
-                            Array.Clear(buffer1, 0, buffer1.Length);
-                          }
-                      } 
+                     
+                   using (var file = new FileStream(path, FileMode.Open))
+                   { 
+                         file.Read(buffer1,0, buffer1.Length); 
+                         c.ConcurrentAppend(filename, true, buffer1, 0, buffer1.Length); 
+                         Array.Clear(buffer1, 0, buffer1.Length);
+                   }
+
                  //returning the used array back to pool
                   b1.Add(buffer1);
                     
@@ -100,15 +98,14 @@ namespace Report_7
                      sync2.Take();
                                     
                      length = length - buffer2.Length;
-                     lock (buffer2)
-                      {
-                          using (var file = new FileStream(path, FileMode.Open))
-                          { 
-                            file.Read(buffer2,0, buffer2.Length); 
-                            c.ConcurrentAppend(filename, true, buffer2, 0, buffer2.Length); 
-                            Array.Clear(buffer2, 0, buffer2.Length);
-                          }
-                      } 
+                    
+                     using (var file = new FileStream(path, FileMode.Open))
+                     { 
+                        file.Read(buffer2,0, buffer2.Length); 
+                        c.ConcurrentAppend(filename, true, buffer2, 0, buffer2.Length); 
+                        Array.Clear(buffer2, 0, buffer2.Length);
+                     }
+                     
                      //returning the used array back to pool
                      b2.Add(buffer2);
                 }
@@ -125,7 +122,7 @@ namespace Report_7
                     {
                         byte [] temp = new byte[Four_MB];
                         b4.Add(temp);
-                        total_initialized_4MB++;
+                       total_initialized_4MB++;
                     }                
                     //taking array
                     buffer4 = b4.Take();
@@ -133,15 +130,14 @@ namespace Report_7
                     sync4.Take();
                   
                    length = length - buffer4.Length;
-                   lock (buffer4)
-                      {
-                          using (var file = new FileStream(path, FileMode.Open))
-                          { 
-                            file.Read(buffer4 ,0, buffer4.Length); 
-                            c.ConcurrentAppend(filename, true, buffer4, 0, buffer4.Length); 
-                            Array.Clear(buffer4, 0, buffer4.Length);
-                          }
-                      } 
+                  
+                   using (var file = new FileStream(path, FileMode.Open))
+                   { 
+                      file.Read(buffer4 ,0, buffer4.Length); 
+                      c.ConcurrentAppend(filename, true, buffer4, 0, buffer4.Length); 
+                      Array.Clear(buffer4, 0, buffer4.Length);
+                   }
+ 
                    //returning the used array back to pool
                     b4.Add(buffer4);
                 }
@@ -167,7 +163,7 @@ namespace Report_7
 
             try
             {
-                string filename = @"DataCheckAgain.txt";
+                string filename = @"jul9testing.txt";
                 string[] path = new string[30];
 
                 Parallel.For(0,30, i => {
